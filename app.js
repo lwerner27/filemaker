@@ -1,9 +1,10 @@
-const express = require('express')
-const fs = require('fs')
+import express from "express"
+import fs from "fs"
+import createAndServeFile from "./Helpers/FileCreator.js"
 
 const app = express()
 
-PORT = 3000 || process.env.PORT
+const PORT = 3000
 
 app.get('/', (req, res) => {
 
@@ -23,6 +24,10 @@ app.get('/', (req, res) => {
             console.log("File Deleted.")
         })
     })
+})
+
+app.get("/hello/:name", (req, res) => {
+    createAndServeFile(req, res)
 })
 
 app.listen(PORT, () => {
