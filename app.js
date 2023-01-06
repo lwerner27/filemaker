@@ -1,12 +1,13 @@
 import express from "express"
 import fs from "fs"
+import crypto from "crypto"
 import createAndServeFile from "./Helpers/FileCreator.js"
 
 const app = express()
 
 const PORT = 3000
 
-app.get('/', (req, res) => {
+app.get('/get/json/file', (req, res) => {
 
     // Creates a very basic JSON file wth very basic data inside
     fs.writeFile('data.json', JSON.stringify({"Hello":"World"}), (err) => {
@@ -28,6 +29,10 @@ app.get('/', (req, res) => {
 
 app.get("/hello/:name", (req, res) => {
     createAndServeFile(req, res)
+})
+
+app.get("/generate/uuid", (req, res) => {
+    res.json({newUUID: crypto.randomUUID()})
 })
 
 app.listen(PORT, () => {
